@@ -33,6 +33,7 @@ These instructions assume you are using `uv`. If you are using standard Python t
 ````bash
 git clone <repository_url>
 cd <repository_folder_name>
+````
 
 2. Set up the environment and install dependencies
 
