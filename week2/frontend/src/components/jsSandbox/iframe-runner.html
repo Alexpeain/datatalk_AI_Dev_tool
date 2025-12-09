@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Minimal CSP: allow only inline scripts in this runner and no external resources -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'">
+    <meta charset="utf-8" />
+    <title>JS Runner</title>
+  </head>
+  <body>
+    <script>
+      // Very small, isolated runner. Only accept messages from our parent window and expect a specific shape.
+      function captureLogs() {
+        const logs = [];
+        const originalLog = console.log;
+        console.log = function () {
+          try { logs.push(Array.from(arguments).join(' ')); } catch(e){}
+          originalLog.apply(console, arguments);
+        };
+        return logs;
+      }
+
+      window.addEventListener('message', (event) => {
+        // ensure message comes from parent window
+        if (event.source !== window.parent) return;
+        const data = event.data;
+        if (!data || data.type !== 'execute_js') return;
+
+        const runId = data.runId;
+        const logs = captureLogs();
+        let error = null;
+        try {
+          // Execute user code in a Function to limit access to local scope
+          const userCode = String(data.code || '');
+          const fn = new Function('"use strict";\n' + userCode);
+          fn();
+        } catch (e) {
+          try { error = String(e); } catch (_) { error = 'Unknown error'; }
+        }
+
+        // Post result back to parent. Target origin is '*' because parent may be on a different origin.
+        try {
+          window.parent.postMessage({ type: 'js_result', runId, output: logs.join('\n'), error }, '*');
+        } catch (e) {
+          // ignore
+        }
+      });
+    </script>
+  </body>
+</html>

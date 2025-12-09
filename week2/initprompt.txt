@@ -1,0 +1,82 @@
+I want you to generate the initial implementation of a full-stack web application for an online coding interview platform. Please produce both the frontend and backend code, including file structure, code snippets, and setup instructions.
+
+The application must support the following features:
+
+1. Create a unique session link that I can share with a candidate.
+2. When multiple users open the same link, they should all see and edit the same code in real time.
+3. Real-time updates must be synchronized across all connected users.
+4. The code editor must support syntax highlighting for at least JavaScript and Python.
+5. The application must execute code safely in the browser (not on the server).
+   - JavaScript should run in a sandboxed iframe or Web Worker.
+   - Python should run using WebAssembly (e.g., Pyodide).
+6. Use these technologies:
+   - Frontend: React + Vite
+   - Backend: Node.js + Express
+   - Real-time communication: Socket.IO
+   - Code editor: Monaco Editor or CodeMirror
+7. The backend should store sessions in memory (no database needed).
+8. Provide instructions for running the frontend and backend.
+
+Please generate:
+- The full folder structure
+- All key source files (frontend + backend)
+- Example code for each file
+- Instructions for installing dependencies and running the app
+
+This is the initial implementation only. Do not include tests, Docker, or deployment yet.
+
+answer 2 -npm test --prefix backend
+answer 3 -"dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+anser 4 I used the built‑in Monaco Editor, which provides syntax highlighting for multiple languages including JavaScript and Python.
+answer 5 I ran Pyodide inside a Web Worker (pyodide-worker.js) so Python executes securely in the browser without blocking the UI.
+answer 6 The base image used for the Dockerfile is node:22-alpine
+The 7 homework questions you must be able to answer
+Let me rephrase them in a practical way:
+
+Initial Implementation
+
+You must ask an AI (like me) in one prompt to implement both frontend and backend.
+
+You then copy that prompt into the homework form as your answer to Question 1.
+
+So we will need to carefully craft that single “initial implementation” prompt together.
+
+Integration Tests
+
+Ask AI to write integration tests checking client–server interaction.
+
+Also ask it to start a README.md with commands for running and testing.
+
+You answer: What is the exact command you run in the terminal to execute the tests?
+
+Running Both Client and Server
+
+Use concurrently (npm package) so that one command runs frontend + backend.
+
+You answer: What is your npm run dev (or similar) command in package.json for running both?
+
+Syntax Highlighting
+
+Add syntax highlighting for JavaScript and Python.
+
+You answer: Which library did AI use for syntax highlighting? (e.g. Monaco, CodeMirror, Prism, etc.)
+
+Code Execution (WASM)
+
+Add code execution, but do not execute on the server.
+
+Use WASM in the browser, and specifically compile/run Python with WASM.
+
+You answer: Which library did AI use to run Python via WASM? (likely Pyodide)
+
+Containerization
+
+Create a Dockerfile that includes both frontend and backend in one container.
+
+You answer: What base image is used in the Dockerfile? (e.g. node:20-alpine)
+
+Deployment
+
+Deploy the app to some service (e.g. Render, Fly.io, Railway, Vercel, etc.).
+
+You answer: Which service you used
