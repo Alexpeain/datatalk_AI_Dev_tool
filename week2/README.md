@@ -103,6 +103,6 @@ Frontend runs on: http://localhost:5173
 
 Run backend tests:
 
-```bash npm test --prefix backend
-
+```bash
+npm test --prefix backend
 ```
